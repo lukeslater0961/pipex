@@ -4,7 +4,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRCS = pipex.c \
-		pipex_utils.c
+		utils/command_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
