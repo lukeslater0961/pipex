@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:49:14 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/12 15:26:06 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/14 13:27:14 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ typedef struct s_data
 {
 	int		infile;
 	int		outfile;
-	char	*command;
-	char	**command_paths;
+	char	**command_1;
+	char	**command_2;
+	char	*full_path;
 } t_data;
-int		find_paths(char **envp,t_data *data);
-char	*check_access(char *command, char **envp, t_data *data);
+char	**find_paths(char **envp);
+int		check_access(char *command, char **envp, t_data *data);
 int		ft_open(char **files, t_data *data);
+int		ft_parse(t_data *data, char **argv, char **envp);
 
 #endif

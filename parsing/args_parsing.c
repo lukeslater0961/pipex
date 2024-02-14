@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   args_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 10:38:48 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/14 13:42:49 by lslater          ###   ########.fr       */
+/*   Created: 2024/02/13 10:54:46 by lslater           #+#    #+#             */
+/*   Updated: 2024/02/14 13:47:05 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
-int main (int argc, char **argv, char **envp)
+int	check_files(char **argv, t_data *data)
 {
-	t_data	*data;
+	if (ft_open(argv, data) == 1)
+		return(1);
+	return (0);
+}
 
-	if (argc != 5)
-	{
-		ft_putstr_fd("invalid num of arguments", 2);
+int	ft_parse(t_data *data, char **argv, char **envp)
+{
+	data->command_1 = ft_split(argv[2], ' ');
+	data->command_2 = ft_split(argv[3], ' ');
+	if (check_files(argv, data) == 1)
 		return (1);
-	}
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (1);
-	ft_parse(data, argv, envp);
-	ft_free_tab(data->command_1);
-	ft_free_tab(data->command_2);
-	// free(data->full_path);
-	free(data);
+	check_access(*data->command_1, envp, data);
+	check_access(*data->command_2, envp, data);
+	return (0);
 }

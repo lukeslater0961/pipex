@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:28:51 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/12 15:37:33 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/14 13:53:47 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,48 +28,51 @@ int	ft_open(char **files, t_data *data)
 			perror(files[4]);
 			close(data->outfile);
 		}
-		return (0);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
-int	find_paths(char **envp, t_data *data)
+char	**find_paths(char **envp)
 {
 	int		i;
+	char	**command_paths;
 
 	i = 0;
 	while (envp && envp[i] && ft_strncmp(envp[i], "PATH=", 5))
 		i++;
 	if (!envp[i])
-		return (1);
-	data->command_paths = ft_split(envp[i] + 5, ':');
-	return (0);
+		return (NULL);
+	command_paths = ft_split(envp[i] + 5, ':');
+	return (command_paths);
 }
 
-char	*check_access(char *command, char **envp, t_data *data)
+int	check_access(char *command, char **envp, t_data *data)
 {
 	char	*command_with_slash;
-	char	*full_path;
+	char	**command_paths;
 	int		i;
 
 	i = 0;
-	if(find_paths(envp, data) == 1)
-		return (NULL);
+	command_paths = find_paths(envp);
+	if(*command_paths == NULL)
+		return (1);
 	command_with_slash = ft_strjoin("/", command);
-	while (data->command_paths && data->command_paths[i])
+	while (command_paths && command_paths[i])
 	{
-		full_path = ft_strjoin(data->command_paths[i], command_with_slash);
-		if (access(full_path, X_OK) != -1)
+		data->full_path = ft_strjoin(command_paths[i], command_with_slash);
+		if (access(data->full_path, X_OK) != -1)
 		{
-			free(full_path);
 			free(command_with_slash);
-			return (data->command_paths[i]);
+			ft_free_tab(command_paths);
+			return (0);
 		}
-		free(full_path);
+		free(data->full_path);
 		i++;
 	}
 	free(command_with_slash);
-	ft_putstr_fd("command not found : ", 2);//to be removed
+	ft_free_tab(command_paths);
+	ft_putstr_fd("command not found :", 2);//to be removed
 	ft_putstr_fd(command, 2);//to be removed
-	return (0);
+	return (1);
 }
