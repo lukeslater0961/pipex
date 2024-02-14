@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 10:38:48 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/14 18:47:26 by lslater          ###   ########.fr       */
+/*   Created: 2024/02/14 18:48:59 by lslater           #+#    #+#             */
+/*   Updated: 2024/02/14 18:51:23 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
-int main (int argc, char **argv, char **envp)
+void    free_paths(char *command_with_slash, char **command_paths)
 {
-	t_data	*data;
-
-	if (argc != 5)
-	{
-		ft_putstr_fd("invalid num of arguments", 2);
-		return (1);
-	}
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (1);
-	ft_parse(data, argv, envp);
-	ft_free_tab(data->command_1);
-	ft_free_tab(data->command_2);
-	close(data->infile);
-	close(data->outfile);
-	free(data);
+    free(command_with_slash);
+	ft_free_tab(command_paths);
 }

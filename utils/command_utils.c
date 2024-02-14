@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:28:51 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/14 13:53:47 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/14 18:58:58 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,14 @@ int	check_access(char *command, char **envp, t_data *data)
 		data->full_path = ft_strjoin(command_paths[i], command_with_slash);
 		if (access(data->full_path, X_OK) != -1)
 		{
-			free(command_with_slash);
-			ft_free_tab(command_paths);
+			free_paths(command_with_slash, command_paths);
 			return (0);
 		}
 		free(data->full_path);
 		i++;
 	}
-	free(command_with_slash);
-	ft_free_tab(command_paths);
-	ft_putstr_fd("command not found :", 2);//to be removed
-	ft_putstr_fd(command, 2);//to be removed
+	free_paths(command_with_slash, command_paths);
+	ft_putstr_fd("command not found :", 2);
+	ft_putstr_fd(command, 2);
 	return (1);
 }
