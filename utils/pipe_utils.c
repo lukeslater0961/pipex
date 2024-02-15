@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 14:04:51 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/15 11:17:43 by lslater          ###   ########.fr       */
+/*   Created: 2024/02/15 11:06:19 by lslater           #+#    #+#             */
+/*   Updated: 2024/02/15 13:40:53 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../pipex.h"
 
-void	ft_free_tab(char **s1)
+int	create_pipe(pid_t pid)
 {
-	int	i;
-
-	i = 0;
-	while (s1[i])
+	if (pid == -1)
 	{
-		free(s1[i]);
-		i++;
+		perror("fork");
+		return (1);
 	}
-	free(s1);
+	else if (pid == 0)
+		ft_printf("im child = %d\n", getpid());//to be removed
+	else
+		ft_printf("im parent = %d\n", getpid());//to be removed
+	return (0);
 }
