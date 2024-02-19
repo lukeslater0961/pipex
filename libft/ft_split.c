@@ -37,7 +37,7 @@ static char	*ft_free(char **s1)
 	int	i;
 
 	i = 0;
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		free(s1[i]);
 		i++;

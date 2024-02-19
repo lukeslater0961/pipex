@@ -6,8 +6,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRCS = pipex.c \
 		utils/command_utils.c \
 		utils/free_utils.c \
-		utils/pipe_utils.c \
 		parsing/args_parsing.c \
+		exec/exec_commands.c
 
 
 OBJS = $(SRCS:.c=.o)
