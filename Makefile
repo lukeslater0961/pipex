@@ -9,7 +9,6 @@ SRCS = pipex.c \
 		parsing/args_parsing.c \
 		exec/exec_commands.c
 
-
 OBJS = $(SRCS:.c=.o)
 
 #_____Define colors_____

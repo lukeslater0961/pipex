@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:28:51 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/19 13:28:04 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/20 13:59:35 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_open(char **files, t_data *data)
 {
 	data->infile = open(files[1], O_RDONLY);
-	data->outfile = open(files[4], O_CREAT | O_WRONLY | O_TRUNC , 0644);
+	data->outfile = open(files[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (data->infile == -1 || data->outfile == -1)
 	{
 		if (data->infile < 0)

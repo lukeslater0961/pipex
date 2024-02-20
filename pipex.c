@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:38:48 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/19 14:19:31 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/20 13:48:31 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
+	int		i;
 
+	i = 2;
 	if (argc != 5)
 	{
 		ft_putstr_fd("invalid num of arguments\n", 2);
@@ -26,17 +28,13 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	if (ft_parse(data, argv, envp) == 0)
 	{
-		ex_command_1(data, data->pid1, envp);
-		ex_command_2(data, data->pid2, envp);
-		wait(&data->pid1);
-		wait(&data->pid2);
+		data->argv = argv;
+		ex_command_1(data, &(data->pid[0]), envp);
+		ex_command_2(data, &(data->pid[1]), envp);
+		close_fds(data);
+		while (i)
+			waitpid(data->pid[--i], NULL, 0);
 	}
-    close(data->pipefd[0]);
-    close(data->pipefd[1]);
-    if (data->infile >= 0)
-		close(data->infile);
-	if (data->outfile >= 0)
-		close(data->outfile);
 	ft_free_tab(data->command_1);
 	ft_free_tab(data->command_2);
 	free(data);
