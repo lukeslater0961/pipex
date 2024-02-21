@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:54:46 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/20 13:59:51 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/21 13:14:52 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,5 @@ int	ft_parse(t_data *data, char **argv, char **envp)
 		return (1);
 	check_access(data->command_1, envp);
 	check_access(data->command_2, envp);
-	ft_printf(" command 1 path = %s\n", *data->command_1);//to be removed
-	ft_printf(" command 2 path = %s\n", *data->command_2);//to be removed
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:28:51 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/20 13:59:35 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/21 13:18:56 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,35 @@ char	**find_paths(char **envp)
 	return (command_paths);
 }
 
+int	access_loop(char **cmd_path, char *full_path, char *full_cmd, char **cmd)
+{
+	int	i;
+
+	i = 0;
+	if (*cmd && access(*cmd, X_OK) != -1)
+		return (0);
+	else
+	{
+		while (cmd_path && cmd_path[++i])
+		{
+		full_path = ft_strjoin(cmd_path[i], full_cmd);
+		if (full_path && access(full_path, X_OK) != -1)
+		{
+			free_paths(full_cmd, cmd_path);
+			free(*cmd);
+			*cmd = full_path;
+			return (0);
+		}
+		free(full_path);
+		}
+	}
+	free_paths(full_cmd, cmd_path);
+	ft_putstr_fd("command not found :", 2);
+	ft_putstr_fd(*cmd, 2);
+	ft_putstr_fd("\n", 2);
+	return (1);
+}
+
 int	check_access(char **command, char **envp)
 {
 	char	*full_path;
@@ -50,25 +79,10 @@ int	check_access(char **command, char **envp)
 
 	i = 0;
 	command_paths = find_paths(envp);
-	if (*command_paths == NULL)
+	if (command_paths == NULL || *command_paths == NULL)
 		return (-1);
 	command_with_slash = ft_strjoin("/", *command);
 	full_path = NULL;
-	while (command_paths && command_paths[++i])
-	{
-		full_path = ft_strjoin(command_paths[i], command_with_slash);
-		if (access(full_path, X_OK) != -1)
-		{
-			free_paths(command_with_slash, command_paths);
-			free(*command);
-			*command = full_path;
-			return (0);
-		}
-		free(full_path);
-	}
-	free_paths(command_with_slash, command_paths);
-	ft_putstr_fd("command not found :", 2);
-	ft_putstr_fd(*command, 2);
-	ft_putstr_fd("\n", 2);
+	access_loop(command_paths, full_path, command_with_slash, command);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:49:14 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/20 13:49:21 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/20 14:32:12 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 # define STDIN 0
 # define STDOUT 1
-
 
 typedef struct s_data
 {
