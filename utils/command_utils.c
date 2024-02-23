@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:28:51 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/21 13:18:56 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/23 11:36:25 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ int	access_loop(char **cmd_path, char *full_path, char *full_cmd, char **cmd)
 	int	i;
 
 	i = 0;
-	if (*cmd && access(*cmd, X_OK) != -1)
+	if (*cmd && !access(*cmd, X_OK))
 		return (0);
 	else
 	{
 		while (cmd_path && cmd_path[++i])
 		{
 		full_path = ft_strjoin(cmd_path[i], full_cmd);
-		if (full_path && access(full_path, X_OK) != -1)
+		if (full_path && !access(full_path, X_OK))
 		{
 			free_paths(full_cmd, cmd_path);
 			free(*cmd);
@@ -70,7 +70,7 @@ int	access_loop(char **cmd_path, char *full_path, char *full_cmd, char **cmd)
 	return (1);
 }
 
-int	check_access(char **command, char **envp)
+int	check_access(char **command, char **envp, t_data *data)
 {
 	char	*full_path;
 	char	*command_with_slash;
@@ -80,9 +80,12 @@ int	check_access(char **command, char **envp)
 	i = 0;
 	command_paths = find_paths(envp);
 	if (command_paths == NULL || *command_paths == NULL)
-		return (-1);
+		data->path_error = 1;
 	command_with_slash = ft_strjoin("/", *command);
 	full_path = NULL;
-	access_loop(command_paths, full_path, command_with_slash, command);
-	return (1);
+	if (data->path_error != 1)
+		access_loop(command_paths, full_path, command_with_slash, command);
+	else
+		free(command_with_slash);
+	return (0);
 }

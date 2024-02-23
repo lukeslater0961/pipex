@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:38:48 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/21 13:14:22 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/23 11:36:31 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (1);
+	data->path_error = 0;
 	if (ft_parse(data, argv, envp) == 0)
 	{
 		data->argv = argv;

@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:27:30 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/21 12:45:44 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/23 10:38:36 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	command_exec1(t_data *data, char **envp)
 	execve(data->command_1[0], data->command_1, envp);
 	ft_free_tab(data->command_1);
 	ft_free_tab(data->command_2);
+	free(data);
 	exit (1);
 }
 
@@ -51,6 +52,8 @@ int	ex_command_1(t_data *data, pid_t *pid, char **envp)
 
 void	command_exec2(t_data *data, char **envp)
 {
+	if (!(*data->command_2))
+		data->command_2[0] = ft_strdup("");
 	if (dup2(data->pipefd[0], STDIN) == -1)
 	{
 		perror("dup2");
