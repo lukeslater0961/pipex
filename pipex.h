@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:49:14 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/23 11:06:58 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/24 10:56:55 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**find_paths(char **envp);
 int		check_access(char **command, char **envp, t_data *data);
 int		ft_open(char **files, t_data *data);
 int		ft_parse(t_data *data, char **argv, char **envp);
-void	free_paths(char *command_with_slash, char **command_paths);
+void	free_paths(char *command_with_slash, char **command_paths, char **cmd);
 int		ex_command_1(t_data *data, pid_t *pid, char **envp);
 int		ex_command_2(t_data *data, pid_t *pid, char **envp);
 void	close_fds(t_data *data);

@@ -6,14 +6,16 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 18:48:59 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/20 13:59:16 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/24 10:56:29 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-void	free_paths(char *command_with_slash, char **command_paths)
+void	free_paths(char *command_with_slash, char **command_paths, char **cmd)
 {
+	if (cmd)
+		free(*cmd);
 	free(command_with_slash);
 	ft_free_tab(command_paths);
 }

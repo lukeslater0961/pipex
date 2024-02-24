@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:38:48 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/23 11:36:31 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/24 11:57:59 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	i = 2;
 	if (argc != 5)
 	{
+		ft_printf("%i\n", argc);
 		ft_putstr_fd("invalid num of arguments\n", 2);
 		return (1);
 	}

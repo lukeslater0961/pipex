@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:28:51 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/23 11:36:25 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/24 12:33:45 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,48 @@ char	**find_paths(char **envp)
 	return (command_paths);
 }
 
-int	access_loop(char **cmd_path, char *full_path, char *full_cmd, char **cmd)
+int	access_loop_cases(char **cmd_path, char *full_path,
+	char *full_cmd, char **cmd, t_data *data)
 {
 	int	i;
 
 	i = 0;
+	(void)data;
 	if (*cmd && !access(*cmd, X_OK))
+	{
+		free_paths(full_cmd, cmd_path, NULL);
+		free(full_path);
 		return (0);
+	}
 	else
 	{
 		while (cmd_path && cmd_path[++i])
 		{
-		full_path = ft_strjoin(cmd_path[i], full_cmd);
-		if (full_path && !access(full_path, X_OK))
-		{
-			free_paths(full_cmd, cmd_path);
-			free(*cmd);
-			*cmd = full_path;
-			return (0);
-		}
-		free(full_path);
+			full_path = ft_strjoin(cmd_path[i], full_cmd);
+			if (full_path && !access(full_path, X_OK))
+			{
+				free_paths(full_cmd, cmd_path, cmd);
+				*cmd = full_path;
+				return (0);
+			}
+			free(full_path);
 		}
 	}
-	free_paths(full_cmd, cmd_path);
-	ft_putstr_fd("command not found :", 2);
-	ft_putstr_fd(*cmd, 2);
-	ft_putstr_fd("\n", 2);
+	free_paths(full_cmd, cmd_path, NULL);
 	return (1);
+}
+
+int	access_loop(char **cmd_path, char *full_path, char *full_cmd,
+	char **cmd, t_data *data)
+{
+	if (access_loop_cases(cmd_path, full_path, full_cmd, cmd, data) == 1)
+	{
+		ft_putstr_fd("command not found :", 2);
+		ft_putstr_fd(*cmd, 2);
+		ft_putstr_fd("\n", 2);
+		return (1);
+	}
+	return (0);
 }
 
 int	check_access(char **command, char **envp, t_data *data)
@@ -83,9 +98,6 @@ int	check_access(char **command, char **envp, t_data *data)
 		data->path_error = 1;
 	command_with_slash = ft_strjoin("/", *command);
 	full_path = NULL;
-	if (data->path_error != 1)
-		access_loop(command_paths, full_path, command_with_slash, command);
-	else
-		free(command_with_slash);
+	access_loop(command_paths, full_path, command_with_slash, command, data);
 	return (0);
 }
