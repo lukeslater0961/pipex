@@ -1,11 +1,11 @@
 PROG_NAME = pipex
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 SRCS = pipex.c \
 		utils/command_utils.c \
-		utils/free_utils.c \
+		utils/utils.c \
 		parsing/args_parsing.c \
 		exec/exec_commands.c
 

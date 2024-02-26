@@ -23,15 +23,15 @@ int	parsing_error_mngmt(t_data *data)
 {
 	if (!data->command_1 || !(*data->command_1))
 	{
+		ft_putstr_fd("command not found :", 2);
+		ft_putstr_fd(*data->command_1, 2);
+		ft_putstr_fd("\n", 2);
 		if (!data->command_2 || !(*data->command_2))
 		{
 			ft_putstr_fd("command not found :", 2);
 			ft_putstr_fd(*data->command_2, 2);
 			ft_putstr_fd("\n", 2);
 		}
-		ft_putstr_fd("command not found :", 2);
-		ft_putstr_fd(*data->command_1, 2);
-		ft_putstr_fd("\n", 2);
 		return (1);
 	}
 	else if (!data->command_2 || !(*data->command_2))

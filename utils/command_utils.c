@@ -89,9 +89,7 @@ int	check_access(char **command, char **envp, t_data *data)
 	char	*full_path;
 	char	*command_with_slash;
 	char	**command_paths;
-	int		i;
 
-	i = 0;
 	command_paths = find_paths(envp);
 	if (command_paths == NULL || *command_paths == NULL)
 		data->path_error = 1;

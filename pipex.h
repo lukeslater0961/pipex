@@ -14,10 +14,8 @@
 # define PIPEX_H
 
 # include "libft/libft.h"
-# include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include <sys/types.h>
 # include <sys/wait.h>
 
 # define STDIN 0
