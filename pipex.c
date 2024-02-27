@@ -30,8 +30,8 @@ int	main(int argc, char **argv, char **envp)
 	if (ft_parse(data, argv, envp) == 0)
 	{
 		data->argv = argv;
-		ex_command_1(data, &(data->pid[0]), envp);
-		ex_command_2(data, &(data->pid[1]), envp);
+		setup_command_1(data, &(data->pid[0]), envp);
+		setup_command_2(data, &(data->pid[1]), envp);
 		close_fds(data);
 		while (i)
 			waitpid(data->pid[--i], NULL, 0);

@@ -38,8 +38,8 @@ int		check_access(char **command, char **envp, t_data *data);
 int		ft_open(char **files, t_data *data);
 int		ft_parse(t_data *data, char **argv, char **envp);
 void	free_paths(char *command_with_slash, char **command_paths, char **cmd);
-int		ex_command_1(t_data *data, pid_t *pid, char **envp);
-int		ex_command_2(t_data *data, pid_t *pid, char **envp);
+int		setup_command_1(t_data *data, pid_t *pid, char **envp);
+int		setup_command_2(t_data *data, pid_t *pid, char **envp);
 void	close_fds(t_data *data);
 
 #endif

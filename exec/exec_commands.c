@@ -32,7 +32,7 @@ void	command_exec1(t_data *data, char **envp)
 	exit (1);
 }
 
-int	ex_command_1(t_data *data, pid_t *pid, char **envp)
+int	setup_command_1(t_data *data, pid_t *pid, char **envp)
 {
 	if (pipe(data->pipefd) == -1)
 	{
@@ -72,7 +72,7 @@ void	command_exec2(t_data *data, char **envp)
 	exit (1);
 }
 
-int	ex_command_2(t_data *data, pid_t *pid, char **envp)
+int	setup_command_2(t_data *data, pid_t *pid, char **envp)
 {
 	*pid = fork();
 	if (*pid == -1)
