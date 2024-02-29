@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:28:51 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/24 12:40:11 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/29 14:10:10 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,9 @@ int	check_access(char **command, char **envp, t_data *data)
 	char	*full_path;
 	char	*command_with_slash;
 	char	**command_paths;
+	(void)data;
 
 	command_paths = find_paths(envp);
-	if (command_paths == NULL || *command_paths == NULL)
-		data->path_error = 1;
 	command_with_slash = ft_strjoin("/", *command);
 	full_path = NULL;
 	access_loop(command_paths, full_path, command_with_slash, command);

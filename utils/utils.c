@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 18:48:59 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/24 10:56:29 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/29 13:29:08 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ void	free_paths(char *command_with_slash, char **command_paths, char **cmd)
 	ft_free_tab(command_paths);
 }
 
-void	close_fds(t_data *data)
+void	close_fds(t_data *data, int flag)
 {
-	if (data->pipefd[0] > 2)
-		close(data->pipefd[0]);
-	if (data->pipefd[1] > 2)
-		close(data->pipefd[1]);
+	if (flag == 1)
+	{
+		if (data->pipefd[0] > 2)
+			close(data->pipefd[0]);
+		if (data->pipefd[1] > 2)
+			close(data->pipefd[1]);
+	}
 	if (data->infile > 2)
 		close(data->infile);
 	if (data->outfile > 2)

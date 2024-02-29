@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:54:46 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/24 12:06:04 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/29 13:32:55 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ int	ft_parse(t_data *data, char **argv, char **envp)
 {
 	data->command_1 = ft_split(argv[2], ' ');
 	data->command_2 = ft_split(argv[3], ' ');
-	if (check_files(argv, data) == 1)
-		return (1);
+	// if (check_files(argv, data) == 1)
+	// 	return (1);
+	check_files(argv, data);
 	if (parsing_error_mngmt(data) == 1)
 		return (1);
 	check_access(data->command_1, envp, data);

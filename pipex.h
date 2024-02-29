@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:49:14 by lslater           #+#    #+#             */
-/*   Updated: 2024/02/24 10:56:55 by lslater          ###   ########.fr       */
+/*   Updated: 2024/02/29 13:55:47 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@
 
 typedef struct s_data
 {
-	pid_t	pid[1024];
-	int		path_error;
+	pid_t	pid[2];
 	int		infile;
 	int		outfile;
 	int		pipefd[2];
@@ -40,6 +39,6 @@ int		ft_parse(t_data *data, char **argv, char **envp);
 void	free_paths(char *command_with_slash, char **command_paths, char **cmd);
 int		setup_command_1(t_data *data, pid_t *pid, char **envp);
 int		setup_command_2(t_data *data, pid_t *pid, char **envp);
-void	close_fds(t_data *data);
+void	close_fds(t_data *data, int flag);
 
 #endif
