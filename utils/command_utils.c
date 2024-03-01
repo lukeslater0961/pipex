@@ -41,8 +41,8 @@ char	**find_paths(char **envp)
 	return (command_paths);
 }
 
-int	access_loop_cases(char **cmd_path, char *full_path,
-	char *full_cmd, char **cmd)
+int	access_loop(char **cmd_path, char *full_path, char *full_cmd,
+	char **cmd)
 {
 	int	i;
 
@@ -71,29 +71,16 @@ int	access_loop_cases(char **cmd_path, char *full_path,
 	return (1);
 }
 
-int	access_loop(char **cmd_path, char *full_path, char *full_cmd,
-	char **cmd)
-{
-	if (access_loop_cases(cmd_path, full_path, full_cmd, cmd) == 1)
-	{
-		ft_putstr_fd("command not found :", 2);
-		ft_putstr_fd(*cmd, 2);
-		ft_putstr_fd("\n", 2);
-		return (1);
-	}
-	return (0);
-}
-
-int	check_access(char **command, char **envp, t_data *data)
+int	check_access(char **command, char **envp)
 {
 	char	*full_path;
 	char	*command_with_slash;
 	char	**command_paths;
-	(void)data;
 
 	command_paths = find_paths(envp);
 	command_with_slash = ft_strjoin("/", *command);
 	full_path = NULL;
-	access_loop(command_paths, full_path, command_with_slash, command);
+	if (access_loop(command_paths, full_path, command_with_slash, command) == 1)
+		return (1);
 	return (0);
 }

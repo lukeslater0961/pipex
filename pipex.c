@@ -12,20 +12,11 @@
 
 #include "pipex.h"
 
-int	main(int argc, char **argv, char **envp)
+void	pipex_start(t_data *data, char **envp, char **argv)
 {
-	t_data	*data;
 	int		i;
 
 	i = 0;
-	if (argc != 5)
-	{
-		ft_putstr_fd("invalid num of arguments\n", 2);
-		return (1);
-	}
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (1);
 	if (ft_parse(data, argv, envp) == 0)
 	{
 		data->argv = argv;
@@ -48,6 +39,21 @@ int	main(int argc, char **argv, char **envp)
 		while (i)
 			waitpid(data->pid[--i], NULL, 0);
 	}
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_data	*data;
+
+	if (argc != 5)
+	{
+		ft_putstr_fd("invalid num of arguments\n", 2);
+		return (1);
+	}
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (1);
+	pipex_start(data, envp, argv);
 	close_fds(data, 0);
 	ft_free_tab(data->command_1);
 	ft_free_tab(data->command_2);

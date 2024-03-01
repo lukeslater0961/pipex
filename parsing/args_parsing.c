@@ -48,12 +48,10 @@ int	ft_parse(t_data *data, char **argv, char **envp)
 {
 	data->command_1 = ft_split(argv[2], ' ');
 	data->command_2 = ft_split(argv[3], ' ');
-	// if (check_files(argv, data) == 1)
-	// 	return (1);
 	check_files(argv, data);
 	if (parsing_error_mngmt(data) == 1)
 		return (1);
-	check_access(data->command_1, envp, data);
-	check_access(data->command_2, envp, data);
+	check_access(data->command_1, envp);
+	check_access(data->command_2, envp);
 	return (0);
 }

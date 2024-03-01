@@ -26,6 +26,9 @@ void	command_exec1(t_data *data, char **envp)
 	}
 	close_fds(data, 1);
 	execve(data->command_1[0], data->command_1, envp);
+	ft_putstr_fd("command not found :", 2);
+	ft_putstr_fd(data->command_1[0], 2);
+	ft_putstr_fd("\n", 2);
 	ft_free_tab(data->command_1);
 	ft_free_tab(data->command_2);
 	free(data);
@@ -47,8 +50,6 @@ int	setup_command_1(t_data *data, pid_t *pid, char **envp)
 
 void	command_exec2(t_data *data, char **envp)
 {
-	if (!(*data->command_2))
-		data->command_2[0] = ft_strdup("");
 	if (dup2(data->pipefd[0], STDIN) == -1)
 	{
 		perror("dup2");
@@ -61,6 +62,9 @@ void	command_exec2(t_data *data, char **envp)
 	}
 	close_fds(data, 1);
 	execve(data->command_2[0], data->command_2, envp);
+	ft_putstr_fd("command not found :", 2);
+	ft_putstr_fd(data->command_2[0], 2);
+	ft_putstr_fd("\n", 2);
 	ft_free_tab(data->command_1);
 	ft_free_tab(data->command_2);
 	free(data);
