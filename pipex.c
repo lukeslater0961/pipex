@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:38:48 by lslater           #+#    #+#             */
-/*   Updated: 2024/03/02 17:54:07 by lslater          ###   ########.fr       */
+/*   Updated: 2024/03/03 13:18:59 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ void	pipex_start(t_data *data, char **envp, char **argv)
 			i++;
 			setup_command_2(data, &(data->pid[1]), envp);
 		}
-		close_fds(data, 1);
-		while (i)
-			waitpid(data->pid[--i], NULL, 0);
+		if (i > 0)
+		{
+			close_fds(data, 1);
+			while (i)
+				waitpid(data->pid[i--], NULL, 0);
+		}
 	}
 }
 
