@@ -6,7 +6,7 @@
 /*   By: lslater <lslater@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:38:48 by lslater           #+#    #+#             */
-/*   Updated: 2024/03/03 13:18:59 by lslater          ###   ########.fr       */
+/*   Updated: 2024/03/03 16:57:49 by lslater          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	pipex_start(t_data *data, char **envp, char **argv)
 {
 	int		i;
 
-	i = 0;
+	i = 2;
 	if (ft_parse(data, argv, envp) == 0)
 	{
 		data->argv = argv;
@@ -26,21 +26,14 @@ void	pipex_start(t_data *data, char **envp, char **argv)
 			exit (EXIT_FAILURE);
 		}
 		if (data->infile != -1)
-		{
-			i++;
-			setup_command_1(data, &(data->pid[0]), envp);
-		}
+			setup_command_1(data, &(data->pid[0]), envp); 
 		if (data->outfile != -1)
-		{
-			i++;
 			setup_command_2(data, &(data->pid[1]), envp);
-		}
-		if (i > 0)
-		{
-			close_fds(data, 1);
-			while (i)
-				waitpid(data->pid[i--], NULL, 0);
-		}
+		close_fds(data, 1);
+		if (data->infile != -1)
+			waitpid(data->pid[0], NULL, 0);
+		if (data->outfile != -1)
+			waitpid(data->pid[1], NULL, 0);
 	}
 }
 
