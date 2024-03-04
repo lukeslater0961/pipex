@@ -80,6 +80,12 @@ int	check_access(char **command, char **envp)
 	command_paths = find_paths(envp);
 	command_with_slash = ft_strjoin("/", *command);
 	full_path = NULL;
+	if (ft_strlen(*cmd_path) == 0)
+	{
+		free_paths(command_with_slash, command_paths, NULL);
+		free(full_path);
+		return (1);
+	}
 	if (access_loop(command_paths, full_path, command_with_slash, command) == 1)
 		return (1);
 	return (0);

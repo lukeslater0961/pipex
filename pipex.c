@@ -26,7 +26,7 @@ void	pipex_start(t_data *data, char **envp, char **argv)
 			exit (EXIT_FAILURE);
 		}
 		if (data->infile != -1)
-			setup_command_1(data, &(data->pid[0]), envp); 
+			setup_command_1(data, &(data->pid[0]), envp);
 		if (data->outfile != -1)
 			setup_command_2(data, &(data->pid[1]), envp);
 		close_fds(data, 1);
